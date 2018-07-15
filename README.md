@@ -16,6 +16,9 @@ npm install
 npm start
 ```
 
+TODO: 
+- Add instructions for [Travis Toke](https://developer.travis-ci.com/authentication)
+
 ## Contributing
 
 All contributions and suggestions are welcome!

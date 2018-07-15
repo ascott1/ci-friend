@@ -21,10 +21,13 @@
     "simulate:fail": "node_modules/.bin/probot simulate status test/fixtures/status.failure.json ./index.js"
   },
   "dependencies": {
-    "probot": "^7.0.0"
+    "probot": "^7.0.0",
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5"
   },
   "devDependencies": {
     "jest": "^22.4.3",
+    "nock": "^9.4.2",
     "nodemon": "^1.17.2",
     "smee-client": "^1.0.2",
     "standard": "^10.0.3"
