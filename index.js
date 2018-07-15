@@ -1,6 +1,7 @@
 const getBuildInfo = require('./lib/get-build-info')
 const getLog = require('./lib/get-log')
 const extractError = require('./lib/extract-error')
+const commentTemplate = require('./lib/comment-template')
 /**
  * This is the entry point for your Probot App.
  * @param {import('probot').Application} app - Probot's Application class.
@@ -19,13 +20,16 @@ module.exports = app => {
 
       // Get the log content
       let log = await getLog(buildInfo.jobs)
+
+      // Extract the relevant info & clean up the log
       let errorMessage = extractError(log)
 
-      // Extract the relevant info & clean it up
+      // Form a comment
+      let comment = commentTemplate(errorMessage)
 
-      // Post a comment to the PR
+      // Post a comment to the Pull Request
       const params = context.issue({
-        body: errorMessage,
+        body: comment,
         number: buildInfo.pull
       })
       return context.github.issues.createComment(params)
