@@ -1,5 +1,6 @@
-const getBuildInfo = require('./lib/get-build-info.js')
-const getLog = require('./lib/get-log.js')
+const getBuildInfo = require('./lib/get-build-info')
+const getLog = require('./lib/get-log')
+const extractError = require('./lib/extract-error')
 /**
  * This is the entry point for your Probot App.
  * @param {import('probot').Application} app - Probot's Application class.
@@ -18,15 +19,16 @@ module.exports = app => {
 
       // Get the log content
       let log = await getLog(buildInfo.jobs)
+      let errorMessage = extractError(log)
 
       // Extract the relevant info & clean it up
 
       // Post a comment to the PR
-      // const params = context.issue({
-      //   body: 'It failed! :dragon:',
-      //   number: buildInfo.pull
-      // })
-      // return context.github.issues.createComment(params)
+      const params = context.issue({
+        body: errorMessage,
+        number: buildInfo.pull
+      })
+      return context.github.issues.createComment(params)
     }
   })
 }
