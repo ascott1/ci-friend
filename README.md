@@ -20,7 +20,7 @@ npm start
 
 All contributions and suggestions are welcome!
 
-For suggested improvements, please [file an issue](https://github.com/ascott1/readme-template/issues).
+For suggested improvements, please [file an issue](https://github.com/ascott1/ci-friend/issues).
 
 For direct contributions, please fork the repository and file a pull request. If you've never created a pull request before, welcome! :tada: :smile: [Here is a great tutorial](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github) on how to send one.
 
