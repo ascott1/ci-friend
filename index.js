@@ -7,14 +7,14 @@ const commentTemplate = require('./lib/comment-template')
  * @param {import('probot').Application} app - Probot's Application class.
  */
 module.exports = app => {
+  // `context` extracts information from the event
   app.on('status', async context => {
-    // `context` extracts information from the event, which can be passed to
-    // GitHub API calls.
     // Check if the returned context state is a failure
-    if (context.payload.state === 'failure') {
-      // Check that the failure is part of a Pull Request
-      // Check that the failure comes from Travis
-
+    // && that the failure comes from Travis
+    if (
+      context.payload.state === 'failure' &&
+      context.payload.context === 'continuous-integration/travis-ci/pr'
+    ) {
       // get the build info
       let buildInfo = await getBuildInfo(context.payload.target_url)
 

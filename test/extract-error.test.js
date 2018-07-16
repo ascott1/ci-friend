@@ -25,3 +25,7 @@ Error: no test specified`
 test('It returns the contents of the error', () => {
   expect(extractError(log)).toMatch(expectedResult)
 })
+
+test('It throws an error when no npm failures are found', () => {
+  expect(() => extractError('Beep boop')).toThrow()
+})
