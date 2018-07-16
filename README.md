@@ -1,23 +1,38 @@
-# ci-friend
+![ci-friend](logo.png)
 
-> A helper bot for understanding CI build failures. Built with [Probot](https://github.com/probot/probot) :robot:
+> A helper bot for understanding Travis CI build failures. Built with [Probot](https://github.com/probot/probot) :robot:
 
 ## Features
 
-_coming soon_ :wink:
+ci-friend extracts failing test results from a [Travis CI](https://travis-ci.org/) job log and posts them as a comment to the appropriate pull request.
+
+![screenshot](screenshot.png)
+
+## Current limitations
+
+- Currently only works with `npm test`
+- Currently only tested with Jest
+- Assumes a single Travis CI job
 
 ## Setup
 
+First clone the repostiory, insall the dependencies, and copy the `.env` file:
+
 ```sh
-# Install dependencies
+git clone git@github.com:ascott1/ci-friend.git
+cd ci-friend
 npm install
-
-# Run the bot
-npm start
+cp .env.example .env
 ```
+Next, follow the steps found at [Configuring a GitHub App](https://probot.github.io/docs/development/#configuring-a-github-app)
 
-TODO: 
-- Add instructions for [Travis Toke](https://developer.travis-ci.com/authentication)
+Additionally, login to Travis and add your [Travis Token](https://developer.travis-ci.com/authentication) to `.env`
+
+Now you're ready to run your app!
+
+```
+npm run dev
+```
 
 ## Contributing
 
@@ -38,3 +53,5 @@ Please be sure to read and adhere to our [Code of Conduct](CODE_OF_CONDUCT.md).
 ## License
 
 [ISC](LICENSE) © 2018 Adam Scott <ascott1@gmail.com>
+
+Cardigan icon by [Artem Kovyazin](https://thenounproject.com/kosmofish/). Used with permission.
