@@ -24,8 +24,14 @@ module.exports = app => {
       // Extract the relevant info & clean up the log
       let errorMessage = extractError(log)
 
-      // Form a comment
-      let comment = commentTemplate(errorMessage)
+      // Form a comment by passing the error message and Travis build URL
+      let comment = commentTemplate(
+        errorMessage,
+        context.payload.target_url,
+        context.payload.sha,
+        context.payload.name,
+        buildInfo.pull
+      )
 
       // Post a comment to the Pull Request
       const params = context.issue({
