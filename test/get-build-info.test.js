@@ -1,25 +1,14 @@
 const nock = require('nock')
 const getBuildInfo = require('../lib/get-build-info')
+const { mockBuildRequest } = require('./helpers/mock-travis-api')
 
 let targetUrl =
   'https://travis-ci.org/ascott1/bot-test/builds/404106530?utm_source=github_status&utm_medium=notification'
 
-describe('Extract helpful info given a Travis Build URL', () => {
+describe('Given a Travis Build URL return an object of helpful information', () => {
   beforeAll(() => {
-    nock('https://api.travis-ci.org')
-      .get('/v3/build/404106530')
-      .reply(200, {
-        id: 404106530,
-        pull_request_number: 6,
-        jobs: [
-          {
-            '@type': 'job',
-            '@href': '/v3/job/404106531',
-            '@representation': 'minimal',
-            id: 404106531
-          }
-        ]
-      })
+    // Mock the Travis API using nock
+    mockBuildRequest()
   })
   afterAll(() => {
     nock.restore()

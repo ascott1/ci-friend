@@ -4,14 +4,22 @@ const nock = require('nock')
 const successPayload = require('./fixtures/status.success')
 const failPayload = require('./fixtures/status.failure')
 const pendingPayload = require('./fixtures/status.pending')
+const {
+  mockBuildRequest,
+  mockJobRequest
+} = require('./helpers/mock-travis-api')
 
-describe('It handles events', () => {
+describe('Given a GitHub status state, the application properly responds', () => {
   let app
   let github
 
   beforeEach(() => {
+    // Create an `Application` instance
     app = new Application()
+    // Initialize the app
     app.load(plugin)
+    // Mock out the GitHub API
+    // https://probot.github.io/docs/testing/
     github = {
       issues: {
         createComment: jest.fn().mockReturnValue(Promise.resolve({}))
@@ -19,45 +27,13 @@ describe('It handles events', () => {
     }
     app.auth = () => Promise.resolve(github)
 
-    nock('https://api.travis-ci.org')
-      .get('/v3/build/404106530')
-      .reply(200, {
-        id: 404106530,
-        pull_request_number: 6,
-        jobs: [
-          {
-            '@type': 'job',
-            '@href': '/v3/job/404106531',
-            '@representation': 'minimal',
-            id: 404106531
-          }
-        ]
-      })
+    // Mock the Travis API requests using nock
+    mockBuildRequest()
+    mockJobRequest()
+  })
 
-    nock('https://api.travis-ci.org')
-      .get('/v3/job/404106531/log')
-      .reply(200, {
-        '@type': 'log',
-        '@href': '/v3/job/404106531/log',
-        '@representation': 'standard',
-        '@permissions': {
-          read: true,
-          cancel: false,
-          restart: false,
-          debug: false,
-          delete_log: false
-        },
-        id: 295733617,
-        content: 'npm test FAIL ',
-        log_parts: [
-          {
-            content: 'Hello npm test Puppies and kittens npm ERR!',
-            final: true,
-            number: 0
-          }
-        ],
-        '@raw_log_href': '/v3/job/404106531/log.txt'
-      })
+  afterEach(() => {
+    nock.restore()
   })
 
   test('Given a failing Travis status, it posts a comment', async () => {

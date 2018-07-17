@@ -22,10 +22,12 @@ const expectedResult = `> bot-test@1.0.0 test /home/travis/build/ascott1/bot-tes
 
 Error: no test specified`
 
-test('It returns the contents of the error', () => {
-  expect(extractError(log)).toMatch(expectedResult)
-})
+describe('Given the raw job log, return the error message', () => {
+  test('It returns the contents of the error', () => {
+    expect(extractError(log)).toMatch(expectedResult)
+  })
 
-test('It throws an error when no npm failures are found', () => {
-  expect(() => extractError('Beep boop')).toThrow()
+  test('It throws an error when no npm failures are found', () => {
+    expect(() => extractError('Beep boop')).toThrow()
+  })
 })

@@ -22,8 +22,10 @@ Error: no test specified
 \`\`\`
 `
 
-test('It forms a properly formatted comment', () => {
-  expect(commentTemplate(errorLog, travisUrl, sha, name, pull)).toMatch(
-    expectedResult
-  )
+describe('Given the job information, it returns a comment template', () => {
+  test('It forms a properly formatted comment', () => {
+    expect(commentTemplate(errorLog, travisUrl, sha, name, pull)).toMatch(
+      expectedResult
+    )
+  })
 })
