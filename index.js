@@ -10,7 +10,7 @@ module.exports = app => {
   // `context` extracts information from the event
   app.on('status', async context => {
     // Check if the returned context state is a failure
-    // && that the failure comes from Travis
+    // && that the failure comes from a Travis Pull Request build
     if (
       context.payload.state === 'failure' &&
       context.payload.context === 'continuous-integration/travis-ci/pr'
@@ -24,7 +24,7 @@ module.exports = app => {
       // Extract the relevant info & clean up the log
       let errorMessage = extractError(log)
 
-      // Form a comment by passing the error message and Travis build URL
+      // Form a comment by passing the error message, Travis build URL, commit sha, repo name, and PR#
       let comment = commentTemplate(
         errorMessage,
         context.payload.target_url,
