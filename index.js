@@ -16,16 +16,16 @@ module.exports = app => {
       context.payload.context === 'continuous-integration/travis-ci/pr'
     ) {
       // get the build info
-      let buildInfo = await getBuildInfo(context.payload.target_url)
+      const buildInfo = await getBuildInfo(context.payload.target_url)
 
       // Get the log content
-      let log = await getLog(buildInfo.jobs)
+      const log = await getLog(buildInfo.jobs)
 
       // Extract the relevant info & clean up the log
-      let errorMessage = extractError(log)
+      const errorMessage = extractError(log)
 
       // Form a comment by passing the error message, Travis build URL, commit sha, repo name, and PR#
-      let comment = commentTemplate(
+      const comment = commentTemplate(
         errorMessage,
         context.payload.target_url,
         context.payload.sha,
