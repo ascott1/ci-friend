@@ -71,12 +71,12 @@ I've never worked with Probot or GitHub applications before. Here's an outline o
 7. Create the `ci-friend` repo and integrate the basic issue posting code.
 8. Add a failed Travis build fixture to easily trigger the correct status event.
 9. Write code and corresponding tests, following the steps outlined in my pseudo-code:
-  1.  Listen for failure events
-  2.  Extract useful information from the Travis `build` API
-  3.  Get the contents of the Travis log file
-  4.  Extract the relevant information from the log file
-  5.  Create a template for the GitHub comment
-  6.  Post the comment to the appropriate pull request
+    -  Listen for failure events
+    -  Extract useful information from the Travis `build` API
+    -  Get the contents of the Travis log file
+    -  Extract the relevant information from the log file
+    -  Create a template for the GitHub comment
+    -  Post the comment to the appropriate pull request
 10. Once this was completed, I wrote a functional test for the main application file.
 11. Re-visit the tests and perform some additional cleanup
 
