@@ -23,4 +23,9 @@ describe('Given an array of Travis jobs, extract a job log from the Travis API',
     const log = await getLog(jobsArray)
     expect(log).toBe('Hello npm test Puppies and kittens npm ERR!')
   })
+  test('It throws an error if not passed a job', () => {
+    expect(() => {
+      getLog('blah')
+    }).toThrow()
+  })
 })
